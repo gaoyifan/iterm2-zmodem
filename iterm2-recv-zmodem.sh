@@ -4,6 +4,8 @@
 # licensed under cc-wiki with attribution required 
 # Remainder of script public domain
 
+export PATH=$PATH:/opt/homebrew/sbin:/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin
+
 osascript -e 'tell application "iTerm2" to version' > /dev/null 2>&1 && NAME=iTerm2 || NAME=iTerm
 if [[ $NAME = "iTerm" ]]; then
 	FILE=`osascript -e 'tell application "iTerm" to activate' -e 'tell application "iTerm" to set thefile to choose folder with prompt "Choose a folder to place received files in"' -e "do shell script (\"echo \"&(quoted form of POSIX path of thefile as Unicode text)&\"\")"`
@@ -20,7 +22,7 @@ if [[ $FILE = "" ]]; then
 	echo \# Cancelled transfer
 else
 	cd "$FILE"
-	/usr/local/bin/rz -E -e -b
+	rz -E -e -b
 	sleep 1
 	echo
 	echo
